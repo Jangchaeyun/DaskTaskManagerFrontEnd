@@ -1,5 +1,8 @@
+import { ThemeProvider } from "@mui/material";
+import { darkTheme } from "./theme/darktheme";
+
 function App() {
-  return <div className="App"></div>;
+  return <ThemeProvider theme={darkTheme}>DayTaskManage</ThemeProvider>;
 }
 
 export default App;
