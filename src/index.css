@@ -1,28 +1,24 @@
 @font-face {
-  font-family: "HS-Regular";
-  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff")
+  font-family: "양진체";
+  src: url("https://fastly.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff")
     format("woff");
   font-weight: normal;
   font-style: normal;
 }
-
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #1a0b19, #150d2d, #162134) !important;
   color: white !important;
   overflow-x: hidden !important;
   width: 100vw !important;
-  font-family: "HS-Regular" !important;
+  font-family: "양진체" !important;
 }
 
 code {
-  font-family: "HS-Regular";
+  font-family: "양진체";
 }
 
 .card {

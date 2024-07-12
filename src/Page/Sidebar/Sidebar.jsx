@@ -1,4 +1,4 @@
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import React, { useState } from "react";
 import "./Sidebar.css";
 
@@ -14,7 +14,13 @@ const menu = [
 const role = "ROLE_ADMIN";
 
 const Sidebar = () => {
-  const [activeMenu, setActiveMenu] = useState("Home");
+  const [activeMenu, setActiveMenu] = useState("홈");
+  const handleMenuChange = (item) => {
+    setActiveMenu(item.name);
+  };
+  const handleLogout = () => {
+    console.log("handle logout");
+  };
   return (
     <div className="card min-h-[85vh] flex flex-col justify-center fixed w-[20vw]">
       <div className="space-y-5 h-full">
@@ -29,6 +35,7 @@ const Sidebar = () => {
           .filter((item) => item.role.includes(role))
           .map((item) => (
             <p
+              onClick={() => handleMenuChange(item)}
               className={`py-3 px-5 rounded-full text-center cursor-pointer ${
                 activeMenu === item.name ? "activeMenuItem" : "menuItem"
               }`}
@@ -36,6 +43,15 @@ const Sidebar = () => {
               {item.name}
             </p>
           ))}
+        <Button
+          onClick={handleLogout}
+          sx={{ fontFamily: "양진체", padding: ".7rem", borderRadius: "2rem" }}
+          fullWidth
+          className="logoutButton"
+          variant="outlined"
+        >
+          로그아웃
+        </Button>
       </div>
     </div>
   );
