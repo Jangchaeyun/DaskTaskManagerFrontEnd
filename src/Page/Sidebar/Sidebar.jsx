@@ -45,7 +45,11 @@ const Sidebar = () => {
           ))}
         <Button
           onClick={handleLogout}
-          sx={{ fontFamily: "양진체", padding: ".7rem", borderRadius: "2rem" }}
+          sx={{
+            fontFamily: "HancomMalangMalang-Regular",
+            padding: ".7rem",
+            borderRadius: "2rem",
+          }}
           fullWidth
           className="logoutButton"
           variant="outlined"

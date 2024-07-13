@@ -1,10 +1,11 @@
 @font-face {
-  font-family: "양진체";
-  src: url("https://fastly.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff")
-    format("woff");
-  font-weight: normal;
+  font-family: "HancomMalangMalang-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2406-1@1.0/HancomMalangMalang-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
   font-style: normal;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -14,11 +15,11 @@ body {
   color: white !important;
   overflow-x: hidden !important;
   width: 100vw !important;
-  font-family: "양진체" !important;
+  font-family: "HancomMalangMalang-Regular" !important;
 }
 
 code {
-  font-family: "양진체";
+  font-family: "HancomMalangMalang";
 }
 
 .card {
@@ -26,6 +27,13 @@ code {
   box-shadow: rgba(215, 106, 255, 0.507) 0px 0px 20px;
   padding: 1rem;
   border-radius: 5px;
+}
+
+.techStack {
+  color: #c24dd0;
+  border: 2px solid #c24dd0;
+  padding: 0.5rem 2rem;
+  /* background-image: linear-gradient(150deg, #c24dd0, #7a72fa); */
 }
 
 @tailwind base;
