@@ -1,8 +1,23 @@
-import { IconButton } from "@mui/material";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { styled } from "@mui/material/styles";
+
+const role = "ROLE_ADMIN";
 
 const TaskCard = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleOpenUserList = () => {};
+  const handleOpenSubmissionList = () => {};
+  const handleOpenUpdateTaskModel = () => {};
+  const handleDeleteTask = () => {};
   return (
     <div>
       <div className="card lg:flex justify-between">
@@ -27,9 +42,56 @@ const TaskCard = () => {
         </div>
 
         <div>
-          <IconButton>
+          <IconButton
+            id="basic-button"
+            aria-controls={openMenu ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={openMenu ? "true" : undefined}
+            onClick={handleMenuClick}
+          >
             <MoreVertIcon />
           </IconButton>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={openMenu}
+            onClose={handleMenuClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+            sx={{ fontFamily: "HancomMalangMalang" }}
+          >
+            {role === "ROLE_ADMIN" ? (
+              <>
+                <MenuItem
+                  sx={{ fontFamily: "HancomMalangMalang" }}
+                  onClick={handleOpenUserList}
+                >
+                  할당된 사용자
+                </MenuItem>
+                <MenuItem
+                  sx={{ fontFamily: "HancomMalangMalang" }}
+                  onClick={handleOpenSubmissionList}
+                >
+                  제출물 보기
+                </MenuItem>
+                <MenuItem
+                  sx={{ fontFamily: "HancomMalangMalang" }}
+                  onClick={handleOpenUpdateTaskModel}
+                >
+                  수정
+                </MenuItem>
+                <MenuItem
+                  sx={{ fontFamily: "HancomMalangMalang" }}
+                  onClick={handleDeleteTask}
+                >
+                  삭제
+                </MenuItem>
+              </>
+            ) : (
+              <></>
+            )}
+          </Menu>
         </div>
       </div>
     </div>
