@@ -1,12 +1,12 @@
 import { IconButton, Menu, MenuItem } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { styled } from "@mui/material/styles";
 
 const role = "ROLE_ADMIN";
 
 const TaskCard = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -14,7 +14,14 @@ const TaskCard = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const handleOpenUserList = () => {};
+  const [openUserList, setOpenUserList] = useState(false);
+  const handleCloseUserList = () => {
+    setOpenUserList(false);
+  };
+  const handleOpenUserList = () => {
+    setOpenUserList(true);
+    handleMenuClose();
+  };
   const handleOpenSubmissionList = () => {};
   const handleOpenUpdateTaskModel = () => {};
   const handleDeleteTask = () => {};
