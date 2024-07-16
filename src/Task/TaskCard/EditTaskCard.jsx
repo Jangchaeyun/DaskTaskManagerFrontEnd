@@ -17,7 +17,7 @@ const style = {
   fontFamily: "HancomMalangMalang",
 };
 
-export default function UserList({ handleClose, open }) {
+export default function EditTaskCard({ handleClose, open }) {
   return (
     <div>
       <Modal
@@ -27,8 +27,13 @@ export default function UserList({ handleClose, open }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            사용자 리스트
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            fontFamily="HancomMalangMalang"
+          >
+            할 일 수정 폼
           </Typography>
         </Box>
       </Modal>

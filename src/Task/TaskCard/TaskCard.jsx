@@ -2,6 +2,9 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { styled } from "@mui/material/styles";
+import UserList from "../UserList";
+import SubmissionList from "./SubmissionList";
+import EditTaskCard from "./EditTaskCard";
 
 const role = "ROLE_ADMIN";
 
@@ -22,8 +25,26 @@ const TaskCard = () => {
     setOpenUserList(true);
     handleMenuClose();
   };
-  const handleOpenSubmissionList = () => {};
-  const handleOpenUpdateTaskModel = () => {};
+
+  const [openSubmissionList, setOpenSubmissionList] = useState(false);
+  const handleCloseSubmissionList = () => {
+    setOpenSubmissionList(false);
+  };
+
+  const handleOpenSubmissionList = () => {
+    setOpenSubmissionList(true);
+    handleMenuClose();
+  };
+
+  const [openUpdateTaskForm, setOpenUpdateTaskForm] = useState(false);
+  const handleCloseUpdateTaskForm = () => {
+    setOpenUpdateTaskForm(false);
+  };
+
+  const handleOpenUpdateTaskModel = () => {
+    setOpenUpdateTaskForm(true);
+    handleMenuClose();
+  };
   const handleDeleteTask = () => {};
   return (
     <div>
@@ -101,6 +122,20 @@ const TaskCard = () => {
           </Menu>
         </div>
       </div>
+      <UserList
+        open={openUserList}
+        handleClose={handleCloseUserList}
+        sx={{ fontFamily: "HancomMalangMalang" }}
+      />
+      <SubmissionList
+        open={openSubmissionList}
+        handleClose={handleCloseSubmissionList}
+        sx={{ fontFamily: "HancomMalangMalang" }}
+      />
+      <EditTaskCard
+        open={openUpdateTaskForm}
+        handleClose={handleCloseUpdateTaskForm}
+      />
     </div>
   );
 };
