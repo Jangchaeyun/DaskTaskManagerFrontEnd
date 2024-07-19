@@ -3,14 +3,13 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import SubmissionCard from "./SubmissionCard";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 500,
+  width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -18,8 +17,14 @@ const style = {
   fontFamily: "HancomMalangMalang",
 };
 
-const submissions = [1, 1, 1, 1];
-export default function SubmissionList({ handleClose, open }) {
+export default function CreateNewTaskForm({ handleClose, open }) {
+  const [openCreateTaskForm, setOpenCreateTaskForm] = React.useState(false);
+  const handleCloseCreateTaskForm = () => {
+    setOpenCreateTaskForm(false);
+  };
+  const handleOpenCreateTaskModel = () => {
+    setOpenCreateTaskForm(true);
+  };
   return (
     <div>
       <Modal
@@ -29,19 +34,14 @@ export default function SubmissionList({ handleClose, open }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div>
-            {submissions.length > 0 ? (
-              <div className="space-y-2">
-                {submissions.map((item) => (
-                  <SubmissionCard />
-                ))}
-              </div>
-            ) : (
-              <div className="">
-                <div className="text-center">제출물 없음</div>
-              </div>
-            )}
-          </div>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            fontFamily="HancomMalangMalang"
+          >
+            할 일 수정 폼
+          </Typography>
         </Box>
       </Modal>
     </div>
