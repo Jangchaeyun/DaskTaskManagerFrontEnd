@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Autocomplete, Grid, TextField } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -17,14 +18,38 @@ const style = {
   fontFamily: "HancomMalangMalang",
 };
 
+const tags = [
+  "Java",
+  "Spring Boot",
+  "JavaScript",
+  "Python",
+  "React",
+  "Node JS",
+];
+
 export default function CreateNewTaskForm({ handleClose, open }) {
-  const [openCreateTaskForm, setOpenCreateTaskForm] = React.useState(false);
-  const handleCloseCreateTaskForm = () => {
-    setOpenCreateTaskForm(false);
+  const [formData, setFormData] = React.useState({
+    title: "",
+    image: "",
+    description: "",
+    tags: [],
+    deadline: new Date(),
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
-  const handleOpenCreateTaskModel = () => {
-    setOpenCreateTaskForm(true);
+
+  const [selectedTags, setSelectedTags] = React.useState([]);
+
+  const handleTagsChange = (event, value) => {
+    setSelectedTags(value);
   };
+
   return (
     <div>
       <Modal
@@ -34,14 +59,57 @@ export default function CreateNewTaskForm({ handleClose, open }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-            fontFamily="HancomMalangMalang"
-          >
-            할 일 수정 폼
-          </Typography>
+          <form>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs={12}>
+                <TextField
+                  label="제목"
+                  fullWidth
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="이미지"
+                  fullWidth
+                  name="image"
+                  value={formData.image}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="설명"
+                  fullWidth
+                  name="descrption"
+                  rows={4}
+                  value={formData.description}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Autocomplete
+                  multiple
+                  id="multiple-limit-tags"
+                  options={tags}
+                  onChange={handleTagsChange}
+                  getOptionLabel={(option) => option}
+                  renderInput={(params) => (
+                    <TextField label="태그" fullWidth {...params} />
+                  )}
+                />
+                <TextField
+                  label="이미지"
+                  fullWidth
+                  name="image"
+                  value={formData.image}
+                  onChange={handleChange}
+                />
+              </Grid>
+            </Grid>
+          </form>
         </Box>
       </Modal>
     </div>
