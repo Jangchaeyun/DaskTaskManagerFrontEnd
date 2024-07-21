@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Autocomplete, Grid, TextField } from "@mui/material";
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const style = {
   position: "absolute",
@@ -100,13 +102,11 @@ export default function CreateNewTaskForm({ handleClose, open }) {
                     <TextField label="태그" fullWidth {...params} />
                   )}
                 />
-                <TextField
-                  label="이미지"
-                  fullWidth
-                  name="image"
-                  value={formData.image}
-                  onChange={handleChange}
-                />
+              </Grid>
+              <Grid item xs={12}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateTimePicker label="Basic date time picker" />
+                </LocalizationProvider>
               </Grid>
             </Grid>
           </form>
