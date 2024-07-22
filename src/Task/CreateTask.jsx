@@ -52,6 +52,20 @@ export default function CreateNewTaskForm({ handleClose, open }) {
     setSelectedTags(value);
   };
 
+  const handleDeadlineChange = (date) => {
+    setFormData({
+      ...formData,
+      deadline: date,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { deadline } = formData;
+    console.log("formData", formData, "deadline : ");
+    handleClose();
+  };
+
   return (
     <div>
       <Modal
@@ -61,7 +75,7 @@ export default function CreateNewTaskForm({ handleClose, open }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12}>
                 <TextField
@@ -85,7 +99,7 @@ export default function CreateNewTaskForm({ handleClose, open }) {
                 <TextField
                   label="설명"
                   fullWidth
-                  name="descrption"
+                  name="description"
                   rows={4}
                   value={formData.description}
                   onChange={handleChange}
@@ -105,8 +119,23 @@ export default function CreateNewTaskForm({ handleClose, open }) {
               </Grid>
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateTimePicker label="Basic date time picker" />
+                  <DateTimePicker
+                    onChange={handleDeadlineChange}
+                    className="w-full"
+                    label="데드라인"
+                    renderInput={(params) => <TextField {...params} />}
+                  />
                 </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  fullWidth
+                  className="customeButton"
+                  type="submit"
+                  sx={{ padding: ".9rem" }}
+                >
+                  만들기
+                </Button>
               </Grid>
             </Grid>
           </form>
