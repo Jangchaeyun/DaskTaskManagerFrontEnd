@@ -29,7 +29,7 @@ const tags = [
   "Node JS",
 ];
 
-export default function CreateNewTaskForm({ handleClose, open }) {
+export default function EditTaskForm({ handleClose, open }) {
   const [formData, setFormData] = React.useState({
     title: "",
     image: "",
@@ -153,7 +153,7 @@ export default function CreateNewTaskForm({ handleClose, open }) {
                   type="submit"
                   sx={{ padding: ".9rem" }}
                 >
-                  만들기
+                  수정
                 </Button>
               </Grid>
             </Grid>

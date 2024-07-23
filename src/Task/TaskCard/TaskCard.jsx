@@ -4,7 +4,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { styled } from "@mui/material/styles";
 import UserList from "../UserList";
 import SubmissionList from "./SubmissionList";
-import EditTaskCard from "./EditTaskCard";
+import EditTaskForm from "./EditTaskForm";
 
 const role = "ROLE_ADMIN";
 
@@ -134,7 +134,7 @@ const TaskCard = () => {
         handleClose={handleCloseSubmissionList}
         sx={{ fontFamily: "HancomMalangMalang" }}
       />
-      <EditTaskCard
+      <EditTaskForm
         open={openUpdateTaskForm}
         handleClose={handleCloseUpdateTaskForm}
       />
