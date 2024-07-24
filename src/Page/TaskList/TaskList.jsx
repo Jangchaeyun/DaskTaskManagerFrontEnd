@@ -1,5 +1,5 @@
 import React from "react";
-import TaskCard from "../../Task/TaskCard/TaskCard";
+import TaskCard from "../Task/TaskCard/TaskCard";
 
 const TaskList = () => {
   return (

@@ -1,7 +1,7 @@
 import { Avatar, Button } from "@mui/material";
 import React, { useState } from "react";
 import "./Sidebar.css";
-import CreateNewTaskForm from "../../Task/CreateTask";
+import CreateNewTaskForm from "../Task/CreateTask";
 
 const menu = [
   { name: "홈", value: "Home", role: ["ROLE_ADMIN", "ROLE_CUSTOMER"] },

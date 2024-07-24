@@ -85,6 +85,8 @@ export default function EditTaskForm({ handleClose, open }) {
     handleClose();
   };
 
+  React.useEffect(() => {}, []);
+
   return (
     <div>
       <Modal
