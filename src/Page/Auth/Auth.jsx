@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import "./Auth.css";
 
 const Auth = () => {
-  const [isRegister, setIsRegister] = useState();
+  const [isRegister, setIsRegister] = useState(false);
   const togglePanel = () => {
     setIsRegister(!isRegister);
   };
@@ -21,6 +22,18 @@ const Auth = () => {
               </span>
               <span className="text-2 text-xs">Let's get connected</span>
             </div>
+          </div>
+          <div className="back">
+            <img
+              src="https://images.pexels.com/photos/12679942/pexels-photo-12679942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt=""
+            />
+          </div>
+        </div>
+        <div className="forms h-full">
+          <div className="form-content h-full">
+            <div className="login-form">로그인 폼</div>
+            <div className="signup-form">회원가입 폼</div>
           </div>
         </div>
       </div>
