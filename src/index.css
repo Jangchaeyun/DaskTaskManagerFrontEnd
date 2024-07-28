@@ -19,7 +19,11 @@ body {
 }
 
 code {
-  font-family: "HancomMalangMalang";
+  font-family: "HancomMalangMalang-Regular";
+}
+
+div {
+  font-family: "HancomMalangMalang-Regular";
 }
 
 .card {

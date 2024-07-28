@@ -109,7 +109,7 @@
 
 .form-content .login-form,
 .form-content .signup-form {
-  width: calc(100% 2 - 25px);
+  width: calc(100% / 2 - 25px);
 }
 
 .textStyle {
