@@ -10,6 +10,10 @@ import {
   ListItemAvatar,
   ListItemText,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserList } from "../../ReduxToolkit/AuthSlice";
+import { assignedTaskToUser } from "../../ReduxToolkit/TaskSlice";
+import { useLocation } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -26,8 +30,20 @@ const style = {
 
 const tasks = [1, 1, 1, 1];
 
-
 export default function UserList({ handleClose, open }) {
+  const dispatch = useDispatch();
+  const { auth } = useSelector((store) => store);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const taskId = queryParams.get("taskId");
+  React.useEffect((item) => {
+    dispatch(getUserList(localStorage.getItem("jwt")));
+  }, []);
+
+  const handleAssignedTask = (user) => {
+    dispatch(assignedTaskToUser({ userId: user.id, taskId: taskId }));
+  };
+
   return (
     <div>
       <Modal
@@ -37,7 +53,7 @@ export default function UserList({ handleClose, open }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {tasks.map((item, index) => (
+          {auth.users.map((item, index) => (
             <>
               <div className="flex items-center justify-between w-full">
                 <div>
@@ -46,13 +62,21 @@ export default function UserList({ handleClose, open }) {
                       <Avatar src="https://media.istockphoto.com/id/931527124/ko/%EB%B2%A1%ED%84%B0/%EB%A7%8C%ED%99%94-%EB%B2%9A%EA%BD%83-%EA%B7%B8%EB%A6%AC%EA%B8%B0.jpg?s=612x612&w=0&k=20&c=IXyPYPHsWr9mTDMu7fAFcWh8kYLSnvdxWnLb_noWPMA=" />
                     </ListItemAvatar>
                     <ListItemText
-                      secondary="@cherry_chaeyun"
-                      primary={"채리채윤"}
+                      secondary={`@${item.fullName
+                        .split(" ")
+                        .join("_")
+                        .toLowerCase()}`}
+                      primary={item.fullName}
                     />
                   </ListItem>
                 </div>
                 <div>
-                  <Button className="customeButton">선택</Button>
+                  <Button
+                    onClick={() => handleAssignedTask(item)}
+                    className="customeButton"
+                  >
+                    선택
+                  </Button>
                 </div>
               </div>
               {index !== tasks.length - 1 && <Divider variant="inset" />}

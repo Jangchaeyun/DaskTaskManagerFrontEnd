@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import "./Sidebar.css";
 import CreateNewTaskForm from "../Task/CreateTask";
 import { useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../../ReduxToolkit/AuthSlice";
+import { useDispatch } from "react-redux";
 
 const menu = [
   { name: "홈", value: "Home", role: ["ROLE_ADMIN", "ROLE_CUSTOMER"] },
   { name: "완료", value: "DONE", role: ["ROLE_ADMIN", "ROLE_CUSTOMER"] },
-  { name: "진행 중", value: "ASSIGNED", role: ["ROLE_ADMIN"] },
-  { name: "보류 중", value: "PENDING", role: ["ROLE_ADMIN"] },
+  { name: "할당 됨", value: "ASSIGNED", role: ["ROLE_ADMIN"] },
+  { name: "진행 중", value: "PENDING", role: ["ROLE_ADMIN"] },
   { name: "새로운 할 일 만들기", value: "", role: ["ROLE_ADMIN"] },
   { name: "알림", value: "NOTIFICATION", role: ["ROLE_CUSTOMER"] },
 ];
@@ -18,6 +20,7 @@ const role = "ROLE_ADMIN";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeMenu, setActiveMenu] = useState("홈");
   const [openCreateTaskForm, setOpenCreateTaskForm] = useState(false);
   const handleCloseCreateTaskForm = () => {
@@ -44,6 +47,7 @@ const Sidebar = () => {
     setActiveMenu(item.name);
   };
   const handleLogout = () => {
+    dispatch(logout());
     console.log("handle logout");
   };
   return (

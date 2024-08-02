@@ -1,20 +1,19 @@
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { styled } from "@mui/material/styles";
 import UserList from "../UserList";
 import SubmissionList from "./SubmissionList";
 import EditTaskForm from "./EditTaskForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteTask } from "../../../ReduxToolkit/TaskSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const role = "ROLE_ADMIN";
+import SubmitFormModel from "./SubmitFormModel";
 
 const TaskCard = ({ item }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const { auth } = useSelector((store) => store);
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const handleMenuClick = (event) => {
@@ -28,6 +27,9 @@ const TaskCard = ({ item }) => {
     setOpenUserList(false);
   };
   const handleOpenUserList = () => {
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.set("taskId", item.id);
+    navigate(`${location.pathname}?${updatedParams.toString()}`);
     setOpenUserList(true);
     handleMenuClose();
   };
@@ -38,7 +40,23 @@ const TaskCard = ({ item }) => {
   };
 
   const handleOpenSubmissionList = () => {
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.set("taskId", item.id);
+    navigate(`${location.pathname}?${updatedParams.toString()}`);
     setOpenSubmissionList(true);
+    handleMenuClose();
+  };
+
+  const [openSubmitFormModel, setOpenSubmitFormModel] = useState(false);
+  const handleCloseSubmitModel = () => {
+    setOpenSubmissionList(false);
+  };
+
+  const handleOpenSubmitFormModel = () => {
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.set("taskId", item.id);
+    navigate(`${location.pathname}?${updatedParams.toString()}`);
+    setOpenSubmitFormModel(true);
     handleMenuClose();
   };
 
@@ -59,11 +77,12 @@ const TaskCard = ({ item }) => {
 
   const handleOpenUpdateTaskModel = () => {
     const updatedParams = new URLSearchParams(location.search);
-    setOpenUpdateTaskForm(true);
     updatedParams.set("taskId", item.id);
     navigate(`${location.pathname}?${updatedParams.toString()}`);
+    setOpenUpdateTaskForm(true);
     handleMenuClose();
   };
+
   const handleDeleteTask = () => {
     dispatch(deleteTask(item.id));
     handleMenuClose();
@@ -108,7 +127,7 @@ const TaskCard = ({ item }) => {
             }}
             sx={{ fontFamily: "HancomMalangMalang" }}
           >
-            {role === "ROLE_ADMIN" ? (
+            {auth.user?.role === "ROLE_ADMIN" ? (
               <>
                 <MenuItem
                   sx={{ fontFamily: "HancomMalangMalang" }}
@@ -116,12 +135,14 @@ const TaskCard = ({ item }) => {
                 >
                   할당된 사용자
                 </MenuItem>
-                <MenuItem
-                  sx={{ fontFamily: "HancomMalangMalang" }}
-                  onClick={handleOpenSubmissionList}
-                >
-                  제출물 보기
-                </MenuItem>
+                {
+                  <MenuItem
+                    sx={{ fontFamily: "HancomMalangMalang" }}
+                    onClick={handleOpenSubmissionList}
+                  >
+                    제출물 보기
+                  </MenuItem>
+                }
                 <MenuItem
                   sx={{ fontFamily: "HancomMalangMalang" }}
                   onClick={handleOpenUpdateTaskModel}
@@ -136,7 +157,14 @@ const TaskCard = ({ item }) => {
                 </MenuItem>
               </>
             ) : (
-              <></>
+              <>
+                <MenuItem
+                  sx={{ fontFamily: "HancomMalangMalang" }}
+                  onClick={handleOpenSubmitFormModel}
+                >
+                  제출물
+                </MenuItem>
+              </>
             )}
           </Menu>
         </div>
@@ -155,6 +183,10 @@ const TaskCard = ({ item }) => {
         item={item}
         open={openUpdateTaskForm}
         handleClose={handleCloseUpdateTaskForm}
+      />
+      <SubmitFormModel
+        open={openSubmitFormModel}
+        handleClose={handleCloseSubmissionList}
       />
     </div>
   );

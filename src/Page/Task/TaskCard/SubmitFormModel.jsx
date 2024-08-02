@@ -8,6 +8,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasksById, updateTask } from "../../../ReduxToolkit/TaskSlice";
 import { useLocation } from "react-router-dom";
+import { submitTask } from "../../../ReduxToolkit/SubmissionSlice";
 
 const style = {
   position: "absolute",
@@ -22,27 +23,15 @@ const style = {
   fontFamily: "HancomMalangMalang",
 };
 
-const tags = [
-  "Java",
-  "Spring Boot",
-  "JavaScript",
-  "Python",
-  "React",
-  "Node JS",
-];
-
-export default function EditTaskForm({ item, handleClose, open }) {
+export default function SubmitFormModel({ item, handleClose, open }) {
   const dispatch = useDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const taskId = queryParams.get("taskId");
   const { task } = useSelector((store) => store);
   const [formData, setFormData] = React.useState({
-    title: "",
-    image: "",
+    githubLink: "",
     description: "",
-    tags: [],
-    deadline: new Date(),
   });
 
   const handleChange = (e) => {
@@ -53,43 +42,9 @@ export default function EditTaskForm({ item, handleClose, open }) {
     });
   };
 
-  const [selectedTags, setSelectedTags] = React.useState([]);
-
-  const handleTagsChange = (event, value) => {
-    setSelectedTags(value);
-  };
-
-  const handleDeadlineChange = (date) => {
-    setFormData({
-      ...formData,
-      deadline: date,
-    });
-  };
-
-  const formateDate = (input) => {
-    let {
-      $y: year,
-      $M: month,
-      $D: day,
-      $H: hours,
-      $m: mintes,
-      $ms: milliseconds,
-    } = input;
-
-    const date = new Date(year, month, day, hours, mintes, milliseconds);
-
-    const formatedDate = date.toISOString();
-
-    return formatedDate;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { deadline } = formData;
-    formData.deadline = formateDate(deadline);
-    formData.tags = selectedTags;
-    console.log("formData", formData, "deadline : ", formData.deadline);
-    dispatch(updateTask({ id: taskId, updatedTaskData: formData }));
+    dispatch(submitTask({ taskId, githubLink: formData.githubLink }));
     handleClose();
   };
 
@@ -114,19 +69,10 @@ export default function EditTaskForm({ item, handleClose, open }) {
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12}>
                 <TextField
-                  label="제목"
+                  label="깃허브 링크"
                   fullWidth
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="이미지"
-                  fullWidth
-                  name="image"
-                  value={formData.image}
+                  name="github"
+                  value={formData.githubLink}
                   onChange={handleChange}
                 />
               </Grid>
@@ -141,35 +87,13 @@ export default function EditTaskForm({ item, handleClose, open }) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Autocomplete
-                  multiple
-                  id="multiple-limit-tags"
-                  options={tags}
-                  onChange={handleTagsChange}
-                  getOptionLabel={(option) => option}
-                  renderInput={(params) => (
-                    <TextField label="태그" fullWidth {...params} />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateTimePicker
-                    onChange={handleDeadlineChange}
-                    className="w-full"
-                    label="데드라인"
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12}>
                 <Button
                   fullWidth
                   className="customeButton"
                   type="submit"
                   sx={{ padding: ".9rem" }}
                 >
-                  수정
+                  전송
                 </Button>
               </Grid>
             </Grid>
